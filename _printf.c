@@ -1,49 +1,49 @@
 #include "main.h"
 /**
- * _printf - Custom printf function
- * @format: Format string with conversion specifiers
- * Return: Number of characters printed (excluding null byte)
- */
+* _printf - Printf function
+* @format: Format string.
+* Return: Number of printed characters.
+*/
 int _printf(const char *format, ...)
 {
 va_list list;
-int c, i, j;
-va_start(list, format);
-c = 0;
-if (!format)
+int i, j, printed_chars;
+printed_chars = 0;
+if (format == NULL)
 return (-1);
 
-for (i = 0; format[i] != '\0'; i++)
+va_start(list, format);
+for (i = 0; format && format[i] != '\0'; i++)
 {
 if (format[i] != '%')
 {
-c += write(1, &format[i], 1);
+write(1, &format[i], 1);
+printed_chars++;
 }
 else
 {
+if (format[i + 1] == '%' || format[i + 1] == 'c')
+{
+char ch = '%';
+printed_chars += write(1, &ch, 1);
+}
+else if (format[i + 1] == 's')
+{
+const char *str = va_arg(list, const char *);
+if (str)
+{
+j = 0;
+while (str[j] != '\0')
+{
+write(1, &str[j], 1);
+j++;
+printed_chars++;
+}
+}
+}
 i++;
-if (format[i] == '%')
-{
-c += write(1, "%", 1);
-}
-if (format[i] == 'c')
-{
-char var = va_arg(list, int);
-c += write(1, &var, 1);
-}
-if (format[i] == 's')
-{
-const char *t = va_arg(list, const char *);
-if (t)
-{
-for (j = 0; t[j] != '\0'; j++)
-{
-c += write(1, &t[j], 1);
-}
-}
-}
 }
 }
 va_end(list);
-return (c);
+return (printed_chars);
 }

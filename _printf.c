@@ -36,7 +36,7 @@ if (format[i] == 's')
 const char *t = va_arg(list, const char *);
 if (t)
 {
-for (j = 0; t[j]; j++)
+for (j = 0; t[j] != '\0'; j++)
 {
 c += write(1, &t[j], 1);
 }

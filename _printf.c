@@ -13,35 +13,31 @@ if (format == NULL)
 return (-1);
 
 va_start(list, format);
-for (i = 0; format && format[i] != '\0'; i++)
+for (i = 0; format[i] != '\0'; i++)
 {
 if (format[i] != '%')
 {
-write(1, &format[i], 1);
-printed_chars++;
+printed_chars += write(1, &format[i], 1);
 }
 else
 {
-if (format[i + 1] == '%' || format[i + 1] == 'c')
+i++;
+if (format[i] == '%' || format[i] == 'c')
 {
-char ch = '%';
+char ch = (format[i] == '%') ? '%' : va_arg(list, int);
 printed_chars += write(1, &ch, 1);
 }
-else if (format[i + 1] == 's')
+else if (format[i] == 's')
 {
 const char *str = va_arg(list, const char *);
 if (str)
 {
-j = 0;
-while (str[j] != '\0')
+for (j = 0; str[j] != '\0'; j++)
 {
-write(1, &str[j], 1);
-j++;
-printed_chars++;
+printed_chars += write(1, &str[j], 1);
 }
 }
 }
-i++;
 }
 }
 va_end(list);

@@ -8,7 +8,7 @@
 int _printf1(const char *format, ...)
 {
 va_list list;
-int c, i, j;
+int c, i;
 c = 0;
 if (!format || (format[0] == '%' && format[1] == '\0'))
 return (-1);
@@ -29,6 +29,7 @@ else if (format[i] == 'd' || format[i] == 'i')
 	int num = va_arg(list, int);
 	char buffer[20];
 	int L = _inttoASC(num, buffer);
+
 	c += write(1, buffer, L);
 }
 else

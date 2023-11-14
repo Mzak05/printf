@@ -6,5 +6,7 @@
 #include <stdarg.h>
 
 int _printf(const char *format, ...);
+int _putca(char c);
+int _puso(char *c);
 
 #endif /* MAIN_H */

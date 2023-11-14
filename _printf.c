@@ -6,44 +6,41 @@
 */
 int _printf(const char *format, ...)
 {
-int c, i, j;
 va_list list;
+int c, i;
 c = 0;
-if (!format)
+if (!format || (format[0] == '%' && format[1] == '\0'))
 return (-1);
+
 va_start(list, format);
-for (i = 0; format[i]; i++)
+for (i = 0; format[i] != '\0'; i++)
 {
-if (format[i] == '%')
+if (format[i] != '%')
 {
+_putca(format[i]);
+}
+else if (format[i + 1] == '%')
+{
+_putca('%');
 i++;
-if (format[i] == '\0')
-{
-va_end(list);
-return (c);
 }
-if (format[i] == '%')
-c += write(1, &format[i], 1);
-else if (format[i] == 'c')
+else if (format[i + 1] == 'c')
 {
-char ch = va_arg(list, int);
-c += write(1, &ch, 1);
+_putca(va_arg(list, int));
+i++;
 }
-else if (format[i] == 's')
+else if (format[i + 1] == 's')
 {
-const char *t = va_arg(list, const char *);
-if (t)
-for (j = 0; t[j]; j++)
-c += write(1, &t[j], 1);
+c += _puso(va_arg(list, char *));
+i++;
 }
 else
 {
-va_end(list);
-return (-1);
+_putca(va_arg(list, int));
+
+i++;
 }
-}
-else
-c += write(1, &format[i], 1);
+c += 1;
 }
 va_end(list);
 return (c);

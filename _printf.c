@@ -19,8 +19,10 @@ if (format[i] == '%')
 i++;
 if (format[i] == '\0')
 break;
+
 if (format[i] == '%')
 c += write(1, &format[i], 1);
+
 else if (format[i] == 'c')
 {
 char ch = va_arg(list, int);
@@ -43,7 +45,5 @@ else
 c += write(1, &format[i], 1);
 }
 va_end(list);
-if (format[i - 1] == '%')
-c += write(1, "%", 1);
 return (c);
 }

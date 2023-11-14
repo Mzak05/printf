@@ -1,45 +1,47 @@
 #include "main.h"
 /**
 * _printf - Printf function
-* @format: Format string.
-* Return: Number of printed characters.
+* @format: format.
+* Return: Printed chars.
 */
 int _printf(const char *format, ...)
 {
 va_list list;
-int i, j, printed_chars;
-printed_chars = 0;
-if (format == NULL)
+int c, i, j;
+c = 0;
+if (!format)
 return (-1);
 
 va_start(list, format);
-for (i = 0; format[i] != '\0'; i++)
+for (i = 0; format[i]; i++)
 {
-if (format[i] != '%')
-{
-printed_chars += write(1, &format[i], 1);
-}
-else
+if (format[i] == '%')
 {
 i++;
-if (format[i] == '%' || format[i] == 'c')
+if (format[i] == '%')
+c += write(1, &format[i], 1);
+
+else if (format[i] == 'c')
 {
-char ch = (format[i] == '%') ? '%' : va_arg(list, int);
-printed_chars += write(1, &ch, 1);
+char ch = va_arg(list, int);
+c += write(1, &ch, 1);
 }
 else if (format[i] == 's')
 {
-const char *str = va_arg(list, const char *);
-if (str)
+const char *t = va_arg(list, const char *);
+if (t)
+for (j = 0; t[j]; j++)
+c += write(1, &t[j], 1);
+}
+else
 {
-for (j = 0; str[j] != '\0'; j++)
-{
-printed_chars += write(1, &str[j], 1);
+va_end(list);
+return (-1);
 }
 }
-}
-}
+else
+c += write(1, &format[i], 1);
 }
 va_end(list);
-return (printed_chars);
+return (c);
 }

@@ -11,7 +11,6 @@ int c, i, j;
 c = 0;
 if (!format || (format[0] == '%' && format[1] == '\0'))
 return (-1);
-
 va_start(list, format);
 for (i = 0; format[i]; i++)
 {

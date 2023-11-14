@@ -1,10 +1,9 @@
 #include <unistd.h>
-
 /**
- * pop - writes the character c to stdout
- * @c: The character to print
- * Return: On success 
- */
+* pop - writes the character c to stdout
+* @c: The character to print
+* Return: On success
+*/
 int pop(char *c)
 {
 int i;

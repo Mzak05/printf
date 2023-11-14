@@ -9,8 +9,9 @@ int _printf(const char *format, ...)
 va_list list;
 int c, i, j;
 c = 0;
-if (!format)
+if (!format || (format[0] == '%' && format[1] == '\0'))
 return (-1);
+
 va_start(list, format);
 for (i = 0; format[i]; i++)
 {

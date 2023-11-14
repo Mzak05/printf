@@ -4,6 +4,7 @@
  * @format: format.
  * Return: Printed chars.
  */
+int pop(char *c);
 int _printf(const char *format, ...)
 {
 int c;
@@ -35,7 +36,6 @@ break;
 case 's':
 	st = va_arg(list, char *);
 	c += pop(st);
-	c -= 1;
 break;
 default:
 return (-1);

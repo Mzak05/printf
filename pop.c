@@ -16,5 +16,5 @@ for (i = 0; c[i] != '\0'; i++)
 {
 write(1, &c[i], 1);
 }
-return (i);
+return (i - 1);
 }

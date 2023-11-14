@@ -1,46 +1,48 @@
 #include "main.h"
 /**
-* _printf - Printf function
-* @format: format.
-* Return: Printed chars.
-*/
+ * _printf - Printf function
+ * @format: format.
+ * Return: Printed chars.
+ */
 int _printf(const char *format, ...)
 {
 va_list list;
-int c, i;
+int c, j;
 c = 0;
-if (!format || (format[0] == '%' && format[1] == '\0'))
-return (-1);
-
 va_start(list, format);
-for (i = 0; format[i] != '\0'; i++)
+while (*format)
 {
-if (format[i] != '%')
+if (*format != '%')
 {
-_putca(format[i]);
-}
-else if (format[i + 1] == '%')
-{
-_putca('%');
-i++;
-}
-else if (format[i + 1] == 'c')
-{
-_putca(va_arg(list, int));
-i++;
-}
-else if (format[i + 1] == 's')
-{
-c += _puso(va_arg(list, char *));
-i++;
+c += write(1, format, 1);
 }
 else
 {
-_putca(va_arg(list, int));
+format++;
+if (*format == '\0')
+break;
 
-i++;
+if (*format == 'c' || *format == '%')
+{
+char t = (*format == 'c') ? va_arg(list, int) : '%';
+c += write(1, &t, 1);
 }
-c += 1;
+else if (*format == 's')
+{
+char *info = va_arg(list, char *);
+j = 0;
+while (info[j] != '\0')
+{
+c += write(1, &info[j], 1);
+j++;
+}
+}
+else
+{
+c += write(1, format, 1);
+}
+}
+format++;
 }
 va_end(list);
 return (c);

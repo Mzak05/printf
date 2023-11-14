@@ -37,10 +37,6 @@ c += write(1, &info[j], 1);
 j++;
 }
 }
-else
-{
-c += write(1, format, 1);
-}
 }
 format++;
 }

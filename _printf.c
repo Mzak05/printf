@@ -7,8 +7,7 @@
 int _printf(const char *format, ...)
 {
 va_list list;
-int c, i, j;
-c = 0;
+int c = 0, i, j;
 if (!format || (format[0] == '%' && format[1] == '\0'))
 return (-1);
 va_start(list, format);
@@ -32,6 +31,7 @@ const char *t = va_arg(list, const char *);
 if (t)
 for (j = 0; t[j]; j++)
 c += write(1, &t[j], 1);
+
 else
 c += write(1, "(null)", 1);
 }

@@ -6,42 +6,44 @@
  */
 int _printf(const char *format, ...)
 {
-va_list args;
-int count;
-count = 0;
-va_start(args, format);
-while (*format != '\0')
+va_list list;
+int c, j;
+c = 0;
+va_start(list, format);
+while (*format)
 {
 if (*format != '%')
-count += write(1, format, 1);
+{
+c += write(1, format, 1);
+}
 else
 {
-switch (*++format)
-{
-char c;
-case 'c':
-c = va_arg(args, int);
-count += write(1, &c, 1);
+format++;
+if (*format == '\0')
 break;
-case 's':
+
+if (*format == 'c' || *format == '%')
 {
-const char *str = va_arg(args, const char *);
-while (*str != '\0')
-{
-count += write(1, str++, 1);
+char t = (*format == 'c') ? va_arg(list, int) : '%';
+c += write(1, &t, 1);
 }
-break;
+else if (*format == 's')
+{
+char *info = va_arg(list, char *);
+j = 0;
+while (info[j] != '\0')
+{
+c += write(1, &info[j], 1);
+j++;
 }
-case '%':
-count += write(1, "%", 1);
-break;
-default:
+}
+else
+{
 return (-1);
-break;
 }
 }
 format++;
 }
-va_end(args);
-return (count);
+va_end(list);
+return (c);
 }

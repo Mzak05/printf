@@ -6,12 +6,13 @@
 */
 int _printf(const char *format, ...)
 {
+int c, i, j;
 va_list list;
-int c = 0;
+c = 0;
 if (!format)
 return (-1);
 va_start(list, format);
-for (int i = 0; format[i]; i++)
+for (i = 0; format[i]; i++)
 {
 if (format[i] == '%')
 {
@@ -32,7 +33,7 @@ else if (format[i] == 's')
 {
 const char *t = va_arg(list, const char *);
 if (t)
-for (int j = 0; t[j]; j++)
+for (j = 0; t[j]; j++)
 c += write(1, &t[j], 1);
 }
 else

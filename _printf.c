@@ -1,4 +1,5 @@
 #include "main.h"
+
 /**
  * _printf - Printf function
  * @format: format.
@@ -7,42 +8,37 @@
 int _printf(const char *format, ...)
 {
 va_list list;
-int c, j;
+int c, i;
 c = 0;
-va_start(list, format);
-while (*format)
-{
-if (*format != '%')
-{
-c += write(1, format, 1);
-}
-else
-{
-format++;
-if (*format == '\0')
-break;
-
-if (*format == 'c' || *format == '%')
-{
-char t = (*format == 'c') ? va_arg(list, int) : '%';
-c += write(1, &t, 1);
-}
-else if (*format == 's')
-{
-char *info = va_arg(list, char *);
-j = 0;
-while (info[j] != '\0')
-{
-c += write(1, &info[j], 1);
-j++;
-}
-}
-else
-{
+if (!format || (format[0] == '%' && format[1] == '\0'))
 return (-1);
+
+va_start(list, format);
+for (i = 0; format[i] != '\0'; i++)
+{
+if (format[i] != '%')
+{
+_putca(format[i]);
+c++;
 }
+else if (format[i + 1] == '%')
+{
+_putca('%');
+c++;
+i++;
 }
-format++;
+else if (format[i + 1] == 'c')
+{
+_putca(va_arg(list, int));
+c++;
+i++;
+}
+else if (format[i + 1] == 's')
+{
+c += _puso(va_arg(list, char *));
+c = c - 1;
+i++;
+}
 }
 va_end(list);
 return (c);

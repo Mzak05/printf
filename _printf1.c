@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
-* _printf - Printf function
+* _printf1 - Printf function
 * @format: format.
 * Return: Printed chars.
 */
-int _printf(const char *format, ...)
+int _printf1(const char *format, ...)
 {
 va_list list;
 int c, i, j;
@@ -24,17 +24,12 @@ break;
 if (format[i] == '%')
 c += write(1, &format[i], 1);
 
-else if (format[i] == 'c')
+else if (format[i] == 'd' || format[i] == 'i')
 {
-char ch = va_arg(list, int);
-c += write(1, &ch, 1);
-}
-else if (format[i] == 's')
-{
-const char *t = va_arg(list, const char *);
-if (t)
-for (j = 0; t[j]; j++)
-c += write(1, &t[j], 1);
+	int num = va_arg(list, int);
+	char buffer[20];
+	int L = _inttoASC(num, buffer);
+	c += write(1, buffer, L);
 }
 else
 {
@@ -48,3 +43,4 @@ c += write(1, &format[i], 1);
 va_end(list);
 return (c);
 }
+

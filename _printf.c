@@ -10,6 +10,7 @@ va_list list;
 int c = 0;
 if (!format)
 return (-1);
+
 va_start(list, format);
 for (int i = 0; format[i]; i++)
 {
@@ -23,6 +24,7 @@ return (c);
 }
 if (format[i] == '%')
 c += write(1, &format[i], 1);
+
 else if (format[i] == 'c')
 {
 char ch = va_arg(list, int);

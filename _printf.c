@@ -18,6 +18,11 @@ for (i = 0; format[i]; i++)
 if (format[i] == '%')
 {
 i++;
+if (format[i] == '\0')
+{
+va_end(list);
+return (c);
+}
 if (format[i] == '%')
 c += write(1, &format[i], 1);
 

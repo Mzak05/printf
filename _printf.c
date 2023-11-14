@@ -11,13 +11,15 @@ int c, i, j;
 c = 0;
 if (!format)
 return (-1);
-
 va_start(list, format);
 for (i = 0; format[i]; i++)
 {
 if (format[i] == '%')
 {
 i++;
+if (format[i] == '\0')
+break;
+
 if (format[i] == '%')
 c += write(1, &format[i], 1);
 

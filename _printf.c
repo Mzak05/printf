@@ -81,7 +81,7 @@ c += write(1, &t[j], 1);
 else if (format[i] == 'd' || format[i] == 'i')
 {
 	int num = va_arg(list, int);
-	char buffer[20];
+	char buffer[50];
 	int L = _inttoASC(num, buffer);
 
 	c += write(1, buffer, L);

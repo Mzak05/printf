@@ -4,17 +4,19 @@
  * print_binary - custom conversion
  * @num: int
  * @buffer: char
+ * Return: c
 */
 
 int print_binary(unsigned int num, char buffer[])
 {
+	int c = 0;
+	int i = 0;
+	unsigned int m;
+
 	if (buffer == NULL)
 	{
 		return (-1);
 	}
-	int c = 0;
-	int i = 0;
-
 	if (num == 0)
 	{
 		buffer[i++] = '0';
@@ -22,7 +24,7 @@ int print_binary(unsigned int num, char buffer[])
 	}
 	else
 	{
-		for (unsigned int m = 1u <<(sizeof(unsigned int) * 8 - 1); m > 0; m >>= 1)
+		for (m = 1u << (sizeof(unsigned int) * 8 - 1); m > 0; m >>= 1)
 		{
 			if (num & m)
 			{
@@ -33,7 +35,7 @@ int print_binary(unsigned int num, char buffer[])
 			{
 				if (c > 0)
 				{
-					buffer[++] = '0';
+					buffer[i++] = '0';
 				}
 			}
 		}

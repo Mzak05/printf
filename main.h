@@ -6,7 +6,7 @@
 #include <stdarg.h>
 
 #define UNUSED(x) (void)(x)
-#define SIZE 1024
+#define BUFFER_SIZE 1024
 
 /*FLAGS*/
 #define F_MINUS 1

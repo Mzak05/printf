@@ -13,7 +13,8 @@
 #define F_PLUS 2
 #define F_ZERO 4
 #define F_HASH 8
-#define F_SPACE 15
+#define F_SPACE 16
+
 
 int _printf(const char *format, ...);
 int _inttoASC(int number, char *AC);
